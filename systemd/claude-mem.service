@@ -1,0 +1,16 @@
+[Unit]
+Description=claude-mem memory worker (BOOT fork)
+After=network.target
+
+[Service]
+Type=simple
+Environment="PATH=%h/.local/bin:%h/.bun/bin:/usr/local/bin:/usr/bin:/bin"
+WorkingDirectory=%h/boot/integration/claude-mem
+ExecStart=%h/.bun/bin/bun %h/boot/integration/claude-mem/plugin/scripts/worker-service.cjs --daemon
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target
